@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Janken Arena</title>
+</head>
+<body>
+    <div class="w-full h-24 bg-zinc-800 
+    flex items-center justify-center border-b-2 border-white ">
+        <h1 class="text-white text-4xl font-bold">Janken Arena</h1>
+    </div>
+    <div class="w-full bg-zinc-800 flex flex-raw bg-zinc-800 ">
+        <div class="flex flex-col w-2/4 p-20 justify-center ">
+            <span class="text-2xl text-white w-full text-center font-bold"> Slelect the parameters </span>
+            <div>
+                <form action="">
+                    <div class="text-white p-10">
+                       <span class="font-bold mb-10">Rocks:</span>  
+                       <input type="range" min="0" max="20" value="5" class="range range-primary" step="5"/>
+                        <div class="w-full flex justify-between text-xs px-2">
+                          <span>0</span>
+                          <span>5</span>
+                          <span>10</span>
+                          <span>15</span>
+                          <span>20</span>
+                        </div>
+                    </div>
+                    <div class="text-white p-10">
+                        <span class="font-bold mb-10">Papers:</span>  
+                        <input type="range" min="0" max="20" value="5" class="range range-primary" step="5"/>
+                         <div class="w-full flex justify-between text-xs px-2">
+                           <span>0</span>
+                           <span>5</span>
+                           <span>10</span>
+                           <span>15</span>
+                           <span>20</span>
+                         </div>
+                     </div>
+                     <div class="text-white p-10">
+                        <span class="font-bold mb-10">Scissors:</span>  
+                        <input type="range" min="0" max="20" value="5" class="range range-primary" step="5"/>
+                         <div class="w-full flex justify-between text-xs px-2">
+                           <span>0</span>
+                           <span>5</span>
+                           <span>10</span>
+                           <span>15</span>
+                           <span>20</span>
+                         </div>
+                     </div>
+                     <div class="w-full flex items-center justify-center">
+                        <input type="submit" value="Shoot!" class="btn btn-outline btn-primary" />
+                     </div>
+                </form>
+            </div> 
+        </div>
+        <div class="flex flex-col w-2/4 p-20 justify-center">
+            <div id="canvas-container"  
+            class="w-full h-full border-2 border-white">
+                <canvas id="myCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+    <script  src="script.js"></script>
+
+</body>
+</html>
