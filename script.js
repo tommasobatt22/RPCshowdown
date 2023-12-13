@@ -22,6 +22,8 @@ var speed = 1.5;
 
 var frameLength = 2;
 
+const radius = 15;
+
 //populating dotsR
 for (let i = 0; i < 5; i++) {
     var x = Math.random() * canvas.width;
@@ -94,7 +96,7 @@ function drawDot(dot) {
     // Set transparency on the dots.
     context.globalAlpha = 0.9;
     context.beginPath();
-    context.arc(dot.x, dot.y, 10, 0, 2 * Math.PI, false);//10 = radius
+    context.arc(dot.x, dot.y, radius, 0, 2 * Math.PI, false);//10 = radius
     context.fillStyle = dot.color;
     context.fill();
 };
@@ -109,14 +111,71 @@ function moveDots() {
            dot.x += dot.xMove;
            dot.y += dot.yMove;
            
-           //collision check
-           if(dot.x <0 ||dot.x > canvas.width){
+           //collision borders check
+           if(dot.x < 0 ||dot.x + radius > canvas.width){
             dot.xMove *= -1
            }
-           if(dot.y <0 ||dot.y > canvas.height){
+           if(dot.y < 0 ||dot.y + radius >= canvas.height){
             dot.yMove *= -1
            }
 
+           //collision dots check
+           for (let k = 0; k < allDots.length; k++) {
+                for (let l = 0; l < allDots[k].length; l++) {
+                    var otherDot = allDots[k][l];
+                    var distance = Math.sqrt(Math.pow(dot.x - otherDot.x, 2) + Math.pow(dot.y - otherDot.y, 2));//more information for the distance: https://it.wikipedia.org/wiki/Distanza_euclidea
+                    if(distance <= radius * 2){
+                        //swapping the directions
+                        var tempX = dot.xMove;
+                        var tempY = dot.yMove;
+                        dot.xMove = otherDot.xMove;
+                        dot.yMove = otherDot.yMove;
+                        otherDot.xMove = tempX;
+                        otherDot.yMove = tempY;
+                        switch (dot.type) {
+                            case 'r':
+                                switch (otherDot.type) {
+                                    case 's':
+                                        //changing the type and the colors
+                                        otherDot.color = dot.color;
+                                        otherDot.type = dot.type;
+                                    break;
+                                    case 'p':
+                                        dot.color = otherDot.color;
+                                        dot.type = otherDot.type;
+                                    break;
+                                }
+                                break;
+                            case 'p':
+                                switch (otherDot.type) {
+                                    case 'r':
+                                        //changing the type and the colors
+                                        otherDot.color = dot.color;
+                                        otherDot.type = dot.type;
+                                    break;
+                                    case 's':
+                                        dot.color = otherDot.color;
+                                        dot.type = otherDot.type;
+                                    break;
+                                }
+                            break;
+                            case 's':
+                                switch (otherDot.type) {
+                                    case 'p':
+                                        //changing the type and the colors
+                                        otherDot.color = dot.color;
+                                        otherDot.type = dot.type;
+                                    break;
+                                    case 'r':
+                                        dot.color = otherDot.color;
+                                        dot.type = otherDot.type;
+                                    break;
+                                }
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
